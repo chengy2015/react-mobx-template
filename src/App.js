@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
+import { Provider, observer, inject } from "mobx-react";
+import { Modal, Button } from "antd";
+import Home from "./view/index";
+import home from "./store/home";
 
 function App() {
+  const { visible, changeShow } = home;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Button
+        type="primary"
+        onClick={(e) => {
+          changeShow(!visible);
+        }}
+      >
+        show
+      </Button>
+
+      <Modal
+        visible={visible}
+        onCancel={(close) => {
+          console.log("close", close);
+        }}
+      >
+        <Home />
+      </Modal>
     </div>
   );
 }
